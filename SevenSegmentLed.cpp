@@ -26,14 +26,17 @@ SOFTWARE.
 #include "Arduino.h"
 #include "SevenSegmentLed.h"
 
+SevenSegmentLed::SevenSegmentLed(int cycleDelay)
+{
+  _cycleDelay=cycleDelay;
+}
 
 void SevenSegmentLed::setDigit(LedDigit digit)
-{       
-    cycle();
+{   
     switch(digit)
     {
       case Zero:
-      point();
+      zero();
       break;
       
       case One:
@@ -186,28 +189,15 @@ void SevenSegmentLed::point()
 }
 
 
-void SevenSegmentLed::cycle(int cycleDelay, int startDigit)
+void SevenSegmentLed::cycle(LedDigit startDigit, LedDigit endDigit)
 {
-  zero();
-  delay(cycleDelay);
-  one();
-  delay(cycleDelay);    
-  two();  
-  delay(cycleDelay);
-  three();  
-  delay(cycleDelay);
-  four();  
-  delay(cycleDelay);
-  five();  
-  delay(cycleDelay);
-  six();  
-  delay(cycleDelay);
-  seven();  
-  delay(cycleDelay);
-  eight();  
-  delay(cycleDelay);
-  nine();  
-  delay(cycleDelay);  
+  int from = (int)startDigit;
+  int to = (int)endDigit;
+  for (int i = from; i <= to; i++)
+  {
+    setDigit((LedDigit)i);
+    delay(_cycleDelay);     
+  }    
 }
 
 void SevenSegmentLed::off()

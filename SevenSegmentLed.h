@@ -61,9 +61,9 @@ class SevenSegmentLed
 {
   public:
     void setDigit(LedDigit digit);
-    void cycle(int cycleDelay, int startDigit);
+    void cycle(LedDigit startDigit, LedDigit endDigit);
     void off();
-    SevenSegmentLed();
+    SevenSegmentLed(int cycleDelay);
     
   private:
     void zero();
@@ -76,7 +76,8 @@ class SevenSegmentLed
     void seven();
     void eight();
     void nine();
-    void point();         
+    void point();     
+    int _cycleDelay;        
 };
 
 #endif
